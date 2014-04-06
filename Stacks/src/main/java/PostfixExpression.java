@@ -19,13 +19,16 @@ public class PostfixExpression {
     }
 
     public static void main(String[] args) {
-        convertToPostfix(args[0]);
-    }
-
-    public static void convertToPostfix(String infixExp)
-    {
+        String infixExp = args[0];
         System.out.println("infix : " + infixExp);
         System.out.print("postfix : ");
+        System.out.print(convertToPostfix(infixExp));
+    }
+
+    public static String convertToPostfix(String infixExp)
+    {
+
+                       StringBuilder sb = new StringBuilder();
         //Collection<Character[]> c = precedence.values();
         Stack<Character> expressionStack = new Stack<Character>();
         for(int i = 0; i < infixExp.length(); i++)
@@ -37,7 +40,7 @@ public class PostfixExpression {
                 if(precedence.containsKey(val)) {
                     if (!expressionStack.isEmpty() && precedence.get(expressionStack.peek().charValue())
                             == precedence.get(val)) {
-                        System.out.print(expressionStack.pop() + " ");
+                        sb.append(expressionStack.pop()).append(" ");
                         expressionStack.push(val);
                     } else {
                         expressionStack.push(val);
@@ -60,18 +63,24 @@ public class PostfixExpression {
                     }
                     else
                     {
-                        System.out.print(tmp + " ");
+                        sb.append(tmp).append(" ");
                     }
                 }
             }
             else
             {
-                System.out.print(val + " ");
+                sb.append(val).append(" ");
             }
         }
+
         while(!expressionStack.isEmpty())
         {
-            System.out.print(expressionStack.pop() + " ");
+            sb.append(expressionStack.pop()).append(" ");
         }
+        if(sb.lastIndexOf(" ") != -1)
+        {
+           sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString().trim();
     }
 }
