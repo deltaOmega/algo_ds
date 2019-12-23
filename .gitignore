@@ -1,0 +1,14 @@
+# Default ignored files
+/workspace.xml
+out/
+projectFilesBackup*/
+/production
+/build
+.idea
+*.iml
+*.ipr
+*.iws
+*.jar
+
+
+.gradle
