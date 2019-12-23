@@ -2,3 +2,4 @@ rootProject.name='algods'
 
 include 'Stacks'
 include 'redblacktree'
+include 'trees'
