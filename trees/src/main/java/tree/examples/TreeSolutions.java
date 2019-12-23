@@ -33,17 +33,34 @@ public class TreeSolutions {
     }
 
     public static void main(String[] args) {
-        int[] arr = {5, 3, 2, 4, 10, 9, 12};
+        //int[] arr = {5, 3, 2, 4, 10, 9, 12};
 
-        TreeNode node = buildBST(arr);
-        List<Integer> nodes = inOrder(node);
+        //TreeNode node = buildBST(arr);
+        //List<Integer> nodes = inOrder(node);
 
-        System.out.println("ndoes are " + nodes);
+        //System.out.println("ndoes are " + nodes);
 
-        System.out.println("count of leaf nodes are " + countLeafNodes(node));
-        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1)));
-        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1, new TreeNode(2), null)));
-        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
+        TreeNode t1 = new TreeNode(1, new TreeNode(3, new TreeNode(5), null),
+                new TreeNode(2));
+
+        TreeNode t2 = new TreeNode(2, new TreeNode(1, null, new TreeNode(4)),
+                new TreeNode(3, null, new TreeNode(7)));
+
+        TreeNode t3 = mergeTrees(t1, t2);
+
+//        System.out.println("ndoes are " + t3);
+
+        TreeNode t4 = new TreeNode(4, new TreeNode(7, new TreeNode(9), new TreeNode(6)), new TreeNode(2,
+                new TreeNode(3), new TreeNode(1)));
+        TreeNode t5 = invertTree(t4);
+        System.out.println("ndoes are " + t5);
+
+
+
+//        System.out.println("count of leaf nodes are " + countLeafNodes(node));
+//        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1)));
+//        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1, new TreeNode(2), null)));
+//        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1, new TreeNode(2), new TreeNode(3))));
 
     /*    List<Integer> prenodes = preOrder(node);
 
@@ -58,7 +75,7 @@ public class TreeSolutions {
         System.out.println("postOrderNodes with one stack are " + postOrderNodes);*/
     }
 
-    private static List<Integer> inOrder(TreeNode node) {
+    public static List<Integer> inOrder(TreeNode node) {
         if(node == null) return Collections.emptyList();
         TreeNode curr = node;
         List<Integer> nodes = new ArrayList<>();
@@ -101,7 +118,8 @@ public class TreeSolutions {
         return nodes;
     }
 
-    private static List<Integer> postOrder(TreeNode node) {
+    //Leetcode
+    public static List<Integer> postOrder(TreeNode node) {
         if(node == null) return Collections.emptyList();
 
         List<Integer> nodes = new ArrayList<>();
@@ -128,7 +146,7 @@ public class TreeSolutions {
         return nodes;
     }
 
-    private static List<Integer> postOrderWithOnstack(TreeNode node) {
+    public static List<Integer> postOrderWithOnstack(TreeNode node) {
         if(node == null) return Collections.emptyList();
 
         List<Integer> nodes = new ArrayList<>();
@@ -159,11 +177,41 @@ public class TreeSolutions {
         return nodes;
     }
 
+    //Leetcode
     public static int countLeafNodes(TreeNode node) {
         if(node == null) return 0;
         if(node.left == null && node.right == null) return 1;
         return countLeafNodes(node.left) + countLeafNodes(node.right);
     }
+
+    //Leetcode
+    public static boolean isSameTree(TreeNode p, TreeNode q) {
+        if(p == null && q == null) return true;
+        if(p == null || q == null) return false;
+        return p.val == q.val && isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    }
+
+//leetcode
+    public static TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
+        if(t1 == null && t2 == null) return null;
+        if(t1 != null && t2 == null) return t1;
+        if(t1 == null && t2 != null) return t2;
+        TreeNode left = mergeTrees(t1.left, t2.left);
+        TreeNode right = mergeTrees(t1.right, t2.right);
+        TreeNode newNode = new TreeNode(t1.val + t2.val, left, right);
+        return newNode;
+    }
+
+    //leetcode
+    public static TreeNode invertTree(TreeNode node) {
+        if(node == null) return node;
+        TreeNode invertedLeft = invertTree(node.left);
+        TreeNode invertedRight= invertTree(node.right);
+        node.left = invertedRight;
+        node.right = invertedLeft;
+        return node;
+    }
+
 
 
 
