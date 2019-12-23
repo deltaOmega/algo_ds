@@ -6,25 +6,25 @@ import java.util.*;
 public class TreeSolutions {
 
     public static TreeNode buildBST(int[] arr) {
-        TreeNode head = insertNode(null, arr[0]);
+        TreeNode head = insertBSTNode(null, arr[0]);
         for(int i = 1; i < arr.length; i++) {
-            insertNode(head, arr[i]);
+            insertBSTNode(head, arr[i]);
         }
         return head;
     }
 
-    public static TreeNode insertNode(TreeNode node, int val) {
+    public static TreeNode insertBSTNode(TreeNode node, int val) {
         TreeNode newNode = new TreeNode(val);
         if(node == null) return newNode;
         if(node.val > val) {
             if(node.left != null) {
-                insertNode(node.left, val);
+                insertBSTNode(node.left, val);
             } else {
                 node.left = newNode;
             }
         } else {
             if(node.right != null) {
-                insertNode(node.right, val);
+                insertBSTNode(node.right, val);
             } else {
                 node.right = newNode;
             }
@@ -165,9 +165,6 @@ public class TreeSolutions {
         return countLeafNodes(node.left) + countLeafNodes(node.right);
     }
 
-    public static void printRootToLeaf(TreeNode node) {
-        if(node == null) return;
 
-    }
 
 }
