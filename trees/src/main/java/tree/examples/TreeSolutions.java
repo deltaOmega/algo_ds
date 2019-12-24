@@ -35,7 +35,6 @@ public class TreeSolutions {
         }
         return newNode;
     }
-
     public static boolean isPalindrome(List<TreeNode> nodes, int start, int end) {
         List<Integer> intNodes = nodes.subList(start, end + 1).stream().map(TreeNode :: getVal).collect(Collectors.toList());
         int l = 0;
@@ -102,9 +101,9 @@ public class TreeSolutions {
         return nodes;
 
     }
-//leet code
+    //leet code
     public static boolean isSymmetric2(TreeNode node) {
-       return isMirror(node, node);
+        return isMirror(node, node);
 
     }
 
@@ -114,59 +113,59 @@ public class TreeSolutions {
         return n1 != null && n2 != null && n1.val == n2.val && isMirror(n1.left, n2.right) && isMirror(n1.right, n2.left);
 
     }
-//leetcode
-public static boolean isSymmetric(TreeNode node) {
+    //leetcode
+    public static boolean isSymmetric(TreeNode node) {
 
 
-    if(node == null) return true;
+        if(node == null) return true;
 
-    Queue<TreeNode> q = new ArrayDeque<>() ;
+        Queue<TreeNode> q = new ArrayDeque<>() ;
 
-    List<TreeNode> nodes = new ArrayList<>();
-    q.offer(node);
-    q.offer(separatorNode);
-    boolean  isPalindrome =  true;
-    int addedElements = 0;
-    int start = 0;
-    int end = 0;
-    while(q.size() > 1 && isPalindrome)  {
+        List<TreeNode> nodes = new ArrayList<>();
+        q.offer(node);
+        q.offer(separatorNode);
+        boolean  isPalindrome =  true;
+        int addedElements = 0;
+        int start = 0;
+        int end = 0;
+        while(q.size() > 1 && isPalindrome)  {
 
-        TreeNode temp = q.remove();
-        if(temp == separatorNode) {
-            nodes.add(separatorNode);
-            q.offer(separatorNode);
-            isPalindrome = isPalindrome(nodes, start, end);
-            start = end + 2;
-            end = end + 1 + addedElements;
-            addedElements = 0;
+            TreeNode temp = q.remove();
+            if(temp == separatorNode) {
+                nodes.add(separatorNode);
+                q.offer(separatorNode);
+                isPalindrome = isPalindrome(nodes, start, end);
+                start = end + 2;
+                end = end + 1 + addedElements;
+                addedElements = 0;
 
-        } else if(temp == nullNode) {
-            nodes.add(temp);
-        } else {
-            nodes.add(temp);
-            if (temp.left != null) {
-                q.offer(temp.left);
+            } else if(temp == nullNode) {
+                nodes.add(temp);
             } else {
-                q.offer(nullNode);
+                nodes.add(temp);
+                if (temp.left != null) {
+                    q.offer(temp.left);
+                } else {
+                    q.offer(nullNode);
+                }
+                addedElements++;
+                if (temp.right != null) {
+                    q.offer(temp.right);
+                } else {
+                    q.offer(nullNode);
+                }
+                addedElements++;
             }
-            addedElements++;
-            if (temp.right != null) {
-                q.offer(temp.right);
-            } else {
-                q.offer(nullNode);
-            }
-            addedElements++;
+
+
         }
-
+        if(isPalindrome) {
+            isPalindrome = isPalindrome(nodes, start, end);
+        }
+        System.out.println(" palindrome " + isPalindrome);
+        return isPalindrome;
 
     }
-    if(isPalindrome) {
-        isPalindrome = isPalindrome(nodes, start, end);
-    }
-    System.out.println(" palindrome " + isPalindrome);
-    return isPalindrome;
-
-}
     public static int findTilt2(TreeNode root) {
         if(root == null) return 0;
         if(root.left == null && root.right == null) return 0;
@@ -192,7 +191,7 @@ public static boolean isSymmetric(TreeNode node) {
         return Math.abs(left - right) + root.val;
     }
 
-//leetcode its not correct
+    //leetcode its not correct
     public static int diameterOfBinaryTree(TreeNode root)
     {
         /* base case if tree is empty */
@@ -320,8 +319,9 @@ public static boolean isSymmetric(TreeNode node) {
     }
 
     public static void main(String[] args) {
+
         //[1,2,2,null,3,null,3]
-        TreeNode t1 = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+       /* TreeNode t1 = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)),
                 new TreeNode(2, new TreeNode(4), new TreeNode(3)));
 
         List<Integer> nodes = levelOrderTraversal(t1).stream().map(it -> it.val).collect(Collectors.toList());
@@ -337,7 +337,7 @@ public static boolean isSymmetric(TreeNode node) {
                 new TreeNode(2, new TreeNode(3), null));
 
         nodes = levelOrderTraversal(t3).stream().map(it -> it.val).collect(Collectors.toList());
-        System.out.println(nodes);
+        System.out.println(nodes);*/
         //int[] arr = {5, 3, 2, 4, 10, 9, 12};
 
         //TreeNode node = buildBST(arr);
@@ -345,7 +345,7 @@ public static boolean isSymmetric(TreeNode node) {
 
         //System.out.println("ndoes are " + nodes);
 
-      /*  TreeNode t1 = new TreeNode(1, new TreeNode(3, new TreeNode(5), null),
+        /*TreeNode t1 = new TreeNode(1, new TreeNode(3, new TreeNode(5), null),
                 new TreeNode(2));
 
         TreeNode t2 = new TreeNode(2, new TreeNode(1, null, new TreeNode(4)),
@@ -355,12 +355,18 @@ public static boolean isSymmetric(TreeNode node) {
 
 //        System.out.println("ndoes are " + t3);
 
-       /* TreeNode t4 = new TreeNode(4, new TreeNode(7, new TreeNode(9), new TreeNode(6)), new TreeNode(2,
+      /*  TreeNode t4 = new TreeNode(4, new TreeNode(7, new TreeNode(9), new TreeNode(6)), new TreeNode(2,
                 new TreeNode(3), new TreeNode(1)));
         TreeNode t5 = invertTree(t4);
-        System.out.println("ndoes are " + t5);*/
+        System.out.println("ndoes are " + t5);
+*/
+        TreeNode t1 = new TreeNode(1, new TreeNode(1), null);
 
+        TreeNode t2 = new TreeNode(1, new TreeNode(1), new TreeNode(1, new TreeNode(1, new TreeNode(2,
+                new TreeNode(1), new TreeNode(1)), new TreeNode(1)), new TreeNode(1)));
 
+        System.out.println("t1 is " + isUnivalTree(t1));
+        System.out.println("t2 is " + isUnivalTree(t2));
 
 //        System.out.println("count of leaf nodes are " + countLeafNodes(node));
 //        System.out.println("count of leaf nodes are " + countLeafNodes(new TreeNode(1)));
@@ -670,7 +676,18 @@ public static boolean isSymmetric(TreeNode node) {
         return node;
     }
 
+//leetcode
+    public static boolean isUnivalTree(TreeNode node) {
 
+        return isUnivalTree(node, node.val);
+
+    }
+    public static boolean isUnivalTree(TreeNode node, int val) {
+        if(node == null) return true;
+        if(node.val != val) return false;
+        return isUnivalTree(node.left, val) && isUnivalTree(node.right, val);
+
+    }
 
 
 }
