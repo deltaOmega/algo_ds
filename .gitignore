@@ -2,8 +2,8 @@
 /workspace.xml
 out/
 projectFilesBackup*/
-/production
-/build
+production/
+build/
 .idea
 *.iml
 *.ipr
