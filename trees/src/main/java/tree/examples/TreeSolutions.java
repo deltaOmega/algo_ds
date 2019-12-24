@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class TreeSolutions {
 
     static TreeNode nullNode = new NullNode();
+    static TreeNode separatorNode = new SeparatorNode();
 
     public static TreeNode buildBST(int[] arr) {
         TreeNode head = insertBSTNode(null, arr[0]);
@@ -58,7 +59,7 @@ public class TreeSolutions {
 
         List<TreeNode> nodes = new ArrayList<>();
         q.offer(node);
-        q.offer(nullNode);
+        q.offer(separatorNode);
         boolean  isPalindrome =  true;
         int addedElements = 0;
         int start = 0;
@@ -66,26 +67,30 @@ public class TreeSolutions {
         while(q.size() > 1 && isPalindrome)  {
 
             TreeNode temp = q.remove();
-            if(temp == nullNode) {
-                nodes.add(nullNode);
-                q.offer(nullNode);
+            if(temp == separatorNode) {
+                nodes.add(separatorNode);
+                q.offer(separatorNode);
                 isPalindrome = isPalindrome(nodes, start, end);
                 start = end + 2;
                 end = end + 1 + addedElements;
                 addedElements = 0;
 
+            } else if(temp == nullNode) {
+                nodes.add(temp);
             } else {
                 nodes.add(temp);
                 if (temp.left != null) {
                     q.offer(temp.left);
-                    addedElements++;
+                } else {
+                    q.offer(nullNode);
                 }
-
+                addedElements++;
                 if (temp.right != null) {
                     q.offer(temp.right);
-                    addedElements++;
+                } else {
+                    q.offer(nullNode);
                 }
-
+                addedElements++;
             }
 
 
@@ -97,6 +102,71 @@ public class TreeSolutions {
         return nodes;
 
     }
+//leet code
+    public static boolean isSymmetric2(TreeNode node) {
+       return isMirror(node, node);
+
+    }
+
+    public static boolean isMirror(TreeNode n1, TreeNode n2) {
+        if(n1 == null && n2 == null) return true;
+
+        return n1 != null && n2 != null && n1.val == n2.val && isMirror(n1.left, n2.right) && isMirror(n1.right, n2.left);
+
+    }
+//leetcode
+public static boolean isSymmetric(TreeNode node) {
+
+
+    if(node == null) return true;
+
+    Queue<TreeNode> q = new ArrayDeque<>() ;
+
+    List<TreeNode> nodes = new ArrayList<>();
+    q.offer(node);
+    q.offer(separatorNode);
+    boolean  isPalindrome =  true;
+    int addedElements = 0;
+    int start = 0;
+    int end = 0;
+    while(q.size() > 1 && isPalindrome)  {
+
+        TreeNode temp = q.remove();
+        if(temp == separatorNode) {
+            nodes.add(separatorNode);
+            q.offer(separatorNode);
+            isPalindrome = isPalindrome(nodes, start, end);
+            start = end + 2;
+            end = end + 1 + addedElements;
+            addedElements = 0;
+
+        } else if(temp == nullNode) {
+            nodes.add(temp);
+        } else {
+            nodes.add(temp);
+            if (temp.left != null) {
+                q.offer(temp.left);
+            } else {
+                q.offer(nullNode);
+            }
+            addedElements++;
+            if (temp.right != null) {
+                q.offer(temp.right);
+            } else {
+                q.offer(nullNode);
+            }
+            addedElements++;
+        }
+
+
+    }
+    if(isPalindrome) {
+        isPalindrome = isPalindrome(nodes, start, end);
+    }
+    System.out.println(" palindrome " + isPalindrome);
+    return isPalindrome;
+
+}
     public static int findTilt2(TreeNode root) {
         if(root == null) return 0;
         if(root.left == null && root.right == null) return 0;
@@ -120,6 +190,30 @@ public class TreeSolutions {
         int left = findTilt(root.left);
         int right = findTilt(root.right);
         return Math.abs(left - right) + root.val;
+    }
+
+//leetcode its not correct
+    public static int diameterOfBinaryTree(TreeNode root)
+    {
+        /* base case if tree is empty */
+        if (root == null)
+            return 0;
+
+        /* get the height of left and right sub trees */
+        int lheight = maxDepth(root.left);
+        int rheight = maxDepth(root.right);
+
+        /* get the diameter of left and right subtrees */
+        int ldiameter = diameterOfBinaryTree(root.left);
+        int rdiameter = diameterOfBinaryTree(root.right);
+
+        /* Return max of following three
+          1) Diameter of left subtree
+         2) Diameter of right subtree
+         3) Height of left subtree + height of right subtree + 1 */
+        return Math.max(lheight + rheight + 1,
+                Math.max(ldiameter, rdiameter));
+
     }
 
     public static List<List<Integer>> rootToLeafPath(TreeNode node) {
@@ -226,6 +320,24 @@ public class TreeSolutions {
     }
 
     public static void main(String[] args) {
+        //[1,2,2,null,3,null,3]
+        TreeNode t1 = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)),
+                new TreeNode(2, new TreeNode(4), new TreeNode(3)));
+
+        List<Integer> nodes = levelOrderTraversal(t1).stream().map(it -> it.val).collect(Collectors.toList());
+        System.out.println(nodes);
+
+        TreeNode t2 = new TreeNode(1, new TreeNode(2, null, new TreeNode(3)),
+                new TreeNode(2, null, new TreeNode(3)));
+
+        nodes = levelOrderTraversal(t2).stream().map(it -> it.val).collect(Collectors.toList());
+        System.out.println(nodes);
+
+        TreeNode t3 = new TreeNode(1, new TreeNode(2, null, new TreeNode(3)),
+                new TreeNode(2, new TreeNode(3), null));
+
+        nodes = levelOrderTraversal(t3).stream().map(it -> it.val).collect(Collectors.toList());
+        System.out.println(nodes);
         //int[] arr = {5, 3, 2, 4, 10, 9, 12};
 
         //TreeNode node = buildBST(arr);
@@ -233,20 +345,20 @@ public class TreeSolutions {
 
         //System.out.println("ndoes are " + nodes);
 
-        TreeNode t1 = new TreeNode(1, new TreeNode(3, new TreeNode(5), null),
+      /*  TreeNode t1 = new TreeNode(1, new TreeNode(3, new TreeNode(5), null),
                 new TreeNode(2));
 
         TreeNode t2 = new TreeNode(2, new TreeNode(1, null, new TreeNode(4)),
                 new TreeNode(3, null, new TreeNode(7)));
 
-        TreeNode t3 = mergeTrees(t1, t2);
+        TreeNode t3 = mergeTrees(t1, t2);*/
 
 //        System.out.println("ndoes are " + t3);
 
-        TreeNode t4 = new TreeNode(4, new TreeNode(7, new TreeNode(9), new TreeNode(6)), new TreeNode(2,
+       /* TreeNode t4 = new TreeNode(4, new TreeNode(7, new TreeNode(9), new TreeNode(6)), new TreeNode(2,
                 new TreeNode(3), new TreeNode(1)));
         TreeNode t5 = invertTree(t4);
-        System.out.println("ndoes are " + t5);
+        System.out.println("ndoes are " + t5);*/
 
 
 
@@ -267,9 +379,9 @@ public class TreeSolutions {
 
         System.out.println("postOrderNodes with one stack are " + postOrderNodes);*/
 
-        TreeNode t8 = new TreeNode(1, new TreeNode(2, new TreeNode(3), null), null);
-        TreeNode t9 = new TreeNode(1, new TreeNode(3), null);
-        System.out.println("t1 and t2 leaves are same  " + leafSimilar(t8, t9));
+       /* TreeNode t8 = new TreeNode(1, new TreeNode(2, new TreeNode(3), null), null);
+        TreeNode t9 = new TreeNode(1, new TreeNode(3), null);*/
+      //  System.out.println("t1 and t2 leaves are same  " + leafSimilar(t8, t9));
        /* TreeNode t1 = new TreeNode(1, new TreeNode(2, new TreeNode(3), new TreeNode(4)),
                 new TreeNode(2, new TreeNode(4), new TreeNode(3)));
 
