@@ -4,10 +4,24 @@ package tree.examples;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class TreeSolutions {
 
     static TreeNode nullNode = new NullNode();
     static TreeNode separatorNode = new SeparatorNode();
+
+    /*public TreeNode buildLeetCodeTree(List<Integer> arr) {
+        int numOfElements = 0;
+        TreeNode root = new TreeNode(arr.get(0));
+        for(int i = 1; i < arr.size(); i = i + 2 * numOfElements) {
+            if(arr.get(i) != null) {
+
+                for(int j = i + numOfElements, )
+                numOfElements ++;
+            }
+        }
+        return treeNode;
+    }*/
 
     public static TreeNode buildBST(int[] arr) {
         TreeNode head = insertBSTNode(null, arr[0]);
