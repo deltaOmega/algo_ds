@@ -74,6 +74,39 @@ public class NumOfPathsMatrix {
 
     }
 
+    public static int numOfPathsBlockedDpWithArr(int m, int n) {
+
+        if(blocked[0][0] == 1) return 0;
+        int[][] arr = new int[m+1][n+1];
+
+        boolean cntinue = true;
+        for(int i = 1; cntinue && i <= m; i ++) {
+            if(blocked[0][i] == 1) {
+                cntinue = false;
+            } else {
+                arr[0][i] = 1;
+            }
+        }
+        cntinue = true;
+        for(int i = 1; cntinue && i <= n; i ++) {
+            if(blocked[i][0] == 1) {
+                cntinue = false;
+            } else {
+                arr[i][0] = 1;
+            }
+        }
+        for(int i = 1; i <= m; i++) {
+            for(int j = 1; j <= n; j++) {
+                if(blocked[i][j] == 0) {
+                    arr[i][j] = arr[i - 1][j] + arr[i][j - 1];
+                }
+             }
+        }
+
+        return arr[m][n];
+
+    }
+
     public static int numOfPathsDpWithoutArr(int m, int n) {
 
         int[] prev = new int[m+1];
