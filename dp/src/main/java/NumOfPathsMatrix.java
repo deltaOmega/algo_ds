@@ -34,6 +34,26 @@ public class NumOfPathsMatrix {
 
     }
 
+    public static int[][] blocked = new int[10][10];
+
+    public static int numOfPathsWithBlocked(int m, int n) {
+
+        if(blocked[m][n] == 1) { return 0; }
+
+        if(m == 0 && n == 0) { return 1; }
+        int x = 0;
+        if(m != 0) {
+            x = numOfPathsWithBlocked(m - 1, n);
+        }
+
+        int y = 0;
+        if(n != 0) {
+            y = numOfPathsWithBlocked(m, n-1);
+        }
+
+        return x+y;
+
+    }
 
     public static int numOfPathsDpWithArr(int m, int n) {
 
@@ -74,6 +94,39 @@ public class NumOfPathsMatrix {
     }
 
     public static void main(String[] args) {
-        System.out.println(numOfPathsDpWithoutArr(3,3));
+        System.out.println("without blocking " + numOfPathsDpWithoutArr(3,3));
+
+        System.out.println("without blocking no elements " + numOfPaths(3, 3));
+
+        blocked[1][1] = 1;
+
+        System.out.println("with blocking elements " + numOfPathsWithBlocked(3, 3));
+
+        blocked[1][1] = 0;
+        blocked[0][0] = 1;
+
+        System.out.println("with blocking elements " + numOfPathsWithBlocked(3, 3));
+
+        blocked[1][1] = 1;
+        blocked[0][1] = 1;
+        blocked[0][0] = 0;
+
+        System.out.println("with blocking elements " + numOfPathsWithBlocked(3, 3));
+
+        blocked[1][0] = 0;
+        blocked[1][1] = 0;
+        blocked[0][1] = 0;
+        blocked[2][2] = 1;
+
+        System.out.println("with blocking elements " + numOfPathsWithBlocked(3, 3));
+
+
+        blocked[2][2] = 0;
+        blocked[1][0] = 1;
+        blocked[1][1] = 1;
+        blocked[0][1] = 1;
+
+        System.out.println("with blocking elements " + numOfPathsWithBlocked(3, 3));
+
     }
 }
