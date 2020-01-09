@@ -134,4 +134,41 @@ public class NumOfPathsMatrixTest {
 
     }
 
+    @Test
+    public void numOfPathsBlockedDpWithoutArr() {
+        assertEquals(20, NumOfPathsMatrix.numOfPathsBlockedDpWithoutArr(3, 3));
+
+        NumOfPathsMatrix.blocked[1][1] = 1;
+
+        assertEquals(8, NumOfPathsMatrix.numOfPathsBlockedDpWithoutArr(3, 3));
+
+        NumOfPathsMatrix.blocked[1][1] = 0;
+        NumOfPathsMatrix.blocked[0][0] = 1;
+
+        assertEquals(0, NumOfPathsMatrix.numOfPathsBlockedDpWithoutArr(3, 3));
+
+
+        NumOfPathsMatrix.blocked[1][1] = 1;
+        NumOfPathsMatrix.blocked[0][1] = 1;
+        NumOfPathsMatrix.blocked[0][0] = 0;
+
+        assertEquals(4, NumOfPathsMatrix.numOfPathsBlockedDpWithoutArr(3, 3));
+
+        NumOfPathsMatrix.blocked[1][0] = 0;
+        NumOfPathsMatrix.blocked[1][1] = 0;
+        NumOfPathsMatrix.blocked[0][1] = 0;
+        NumOfPathsMatrix.blocked[2][2] = 1;
+
+        assertEquals(8, NumOfPathsMatrix.numOfPathsBlockedDpWithoutArr(3, 3));
+
+
+        NumOfPathsMatrix.blocked[2][2] = 0;
+        NumOfPathsMatrix.blocked[1][0] = 1;
+        NumOfPathsMatrix.blocked[1][1] = 1;
+        NumOfPathsMatrix.blocked[0][1] = 1;
+
+        assertEquals(0, NumOfPathsMatrix.numOfPathsBlockedDpWithoutArr(3, 3));
+
+    }
+
 }

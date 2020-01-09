@@ -126,6 +126,39 @@ public class NumOfPathsMatrix {
 
     }
 
+
+
+    public static int numOfPathsBlockedDpWithoutArr(int m, int n) {
+        if(blocked[0][0] == 1) return 0;
+        int[] prev = new int[m+1];
+        int[] curr = new int[m+1];
+        boolean cntinue = true;
+        for(int i = 1; cntinue && i <= m; i ++) {
+            if(blocked[0][i] == 1) {
+                cntinue = false;
+            } else {
+                prev[i] = 1;
+            }
+        }
+
+        int prevvalue = 1;
+         for(int i = 1; i <= m; i++) {
+             if(blocked[i][0] == 1) {
+                 prevvalue = 0;
+             }
+             curr[0] = prevvalue;
+            for(int j = 1; j <= n; j++) {
+                if(blocked[i][j] == 1) {
+                    curr[j] = curr[j - 1] + prev[j];
+                }
+            }
+            prev = curr;
+        }
+
+        return curr[n];
+
+    }
+
     public static void main(String[] args) {
         System.out.println("without blocking " + numOfPathsDpWithoutArr(3,3));
 

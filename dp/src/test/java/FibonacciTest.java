@@ -83,13 +83,13 @@ public class FibonacciTest {
 
     @Test
     public void fibDpWithoutArr() {
-        assertEquals(1, Fibonacci.fibDpWithArr(2));
-        assertEquals(2, Fibonacci.fibDpWithArr(3));
-        assertEquals(21, Fibonacci.fibDpWithArr(8));
-        assertEquals(55, Fibonacci.fibDpWithArr(10));
-        assertEquals(610, Fibonacci.fibDpWithArr(15));
-        assertEquals(6765, Fibonacci.fibDpWithArr(20));
-        assertEquals(102334155, Fibonacci.fibDpWithArr(40));
+        assertEquals(1, Fibonacci.fibDpWithoutArr(2));
+        assertEquals(2, Fibonacci.fibDpWithoutArr(3));
+        assertEquals(21, Fibonacci.fibDpWithoutArr(8));
+        assertEquals(55, Fibonacci.fibDpWithoutArr(10));
+        assertEquals(610, Fibonacci.fibDpWithoutArr(15));
+        assertEquals(6765, Fibonacci.fibDpWithoutArr(20));
+        assertEquals(102334155, Fibonacci.fibDpWithoutArr(40));
     }
 
 }

@@ -30,6 +30,7 @@ public class Fibonacci {
     }
 
     public static int fibDpWithoutArr(int n) {
+        if(n <= 2) return 1;
         int prev = 1, curr = 1;
 
         for(int i=3; i<=n; i++) {
